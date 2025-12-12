@@ -1,0 +1,66 @@
+services:
+    nginx-phpfpm:
+        container_name: nginx-phpfpm
+        build: .docker
+        ports:
+            - 8080:80
+        volumes:
+            - ./backend/:/var/www/backend
+        environment:
+            RUN_MIGRATE: false
+        networks:
+            - docker_network
+    nodejs:
+        image: "node:24.6.0-bookworm"
+        container_name: nodejs-bookworm
+        user: "node"
+        working_dir: /home/node/app
+        environment:
+            - NODE_ENV=development
+        ports:
+            - 5173:5173
+        volumes:
+            - ./frontend/:/home/node/app
+        tty: true
+        # command: "npm run dev"
+        # package.json "scripts": {"dev": "react-router dev --host"}
+        networks:
+            - docker_network
+    database:
+        image: mariadb:12.0.2-noble
+        container_name: mariadb-noble
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root_pass
+            MYSQL_DATABASE: laravel
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: admin
+        networks:
+            - docker_network
+    phpmyadmin:
+        image: phpmyadmin:5.2.3-apache
+        container_name: phpmyadmin-apache
+        restart: always
+        links:
+            - database
+        ports:
+            - 8086:80
+        environment:
+            PMA_HOST: database
+            PMA_USER: admin
+            PMA_PASSWORD: admin
+        networks:
+            - docker_network
+
+networks:
+    docker_network:
+        driver: bridge
+
+# ps aux
+# supervisorctl status
+
+# /etc/nginx/nginx.conf
+# /usr/local/etc/php-fpm.d/www.conf
+
+# docker logs nginx-phpfpm
+# docker exec -it --user www-data nginx-phpfpm bash
