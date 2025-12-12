@@ -17,3 +17,4 @@ npm install
 npm i laravel-echo
 npm i pusher-js
 ```
+4. Реализация подключения к открытому ws каналу

@@ -22,7 +22,7 @@ services:
         volumes:
             - ./frontend/:/home/node/app
         tty: true
-        # command: "npm run dev"
+        command: "npm run dev"
         # package.json "scripts": {"dev": "react-router dev --host"}
         networks:
             - docker_network
