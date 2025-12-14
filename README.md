@@ -18,3 +18,9 @@ npm i laravel-echo
 npm i pusher-js
 ```
 4. Реализация подключения к открытому ws каналу
+5.   Install Laravel Sanctum
+```
+php artisan install:api
+php artisan config:publish cors
+```
+5. Аутентификация пользователя

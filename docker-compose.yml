@@ -7,7 +7,7 @@ services:
         volumes:
             - ./backend/:/var/www/backend
         environment:
-            RUN_MIGRATE: false
+            RUN_MIGRATE: true
         networks:
             - docker_network
     nodejs:
