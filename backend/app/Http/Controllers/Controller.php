@@ -8,9 +8,12 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 abstract class Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Wrap data in the standard success envelope.
      *
