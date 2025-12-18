@@ -3,7 +3,9 @@ FROM php:8.2.29-fpm-bookworm
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git zip unzip nano curl wget procps \
     supervisor \
-    nginx gettext-base
+    nginx gettext-base \
+    && pecl install redis \
+    && docker-php-ext-enable redis
 
 RUN docker-php-ext-install pdo_mysql
 
